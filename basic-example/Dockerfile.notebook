@@ -1,0 +1,12 @@
+# Copyright (c) Jupyter Development Team.
+# Distributed under the terms of the Modified BSD License.
+
+FROM quay.io/jupyter/base-notebook:latest
+
+# Copy all directories from /dhh_bpc to notebook directory
+COPY widget_code /home/jovyan/work/widget_code
+
+# Set proper permissions
+USER root
+RUN chown -R jovyan:users /home/jovyan/work/widget_code
+USER jovyan 

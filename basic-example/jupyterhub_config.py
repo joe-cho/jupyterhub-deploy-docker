@@ -30,22 +30,14 @@ c.DockerSpawner.notebook_dir = notebook_dir
 
 # Mount the real user's Docker volume on the host to the notebook user's
 # notebook directory in the container
-volumes = {
+c.DockerSpawner.volumes = {
     "jupyterhub-user-{username}": notebook_dir,
+    "/dhh_bpc/configs": f"{notebook_dir}/configs",
+    "/dhh_bpc/datasets": f"{notebook_dir}/datasets",
+    "/dhh_bpc/origin_notebooks": f"{notebook_dir}/origin_notebooks",
+    "/dhh_bpc/weights": f"{notebook_dir}/weights",
+    "/dhh_bpc/widgets": f"{notebook_dir}/widgets",
 }
-
-# List of directories to mount from /dhh_bpc
-dhh_dirs = ["configs", "datasets", "origin_notebooks", "weights", "widgets"]
-
-# Check and mount each directory if it exists
-for dir_name in dhh_dirs:
-    host_path = f"/dhh_bpc/{dir_name}"
-    if os.path.exists(host_path):
-        volumes[host_path] = f"{notebook_dir}/{dir_name}"
-    else:
-        print(f"Warning: {host_path} directory does not exist on host machine")
-
-c.DockerSpawner.volumes = volumes
 
 # Remove containers once they are stopped
 c.DockerSpawner.remove = True
