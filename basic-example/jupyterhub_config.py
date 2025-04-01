@@ -32,7 +32,7 @@ c.DockerSpawner.notebook_dir = notebook_dir
 # notebook directory in the container
 c.DockerSpawner.volumes = {
     "jupyterhub-user-{username}": notebook_dir,
-    "/data": "/data",  # Mount host /data directory to container /data
+    "/data": f"{notebook_dir}/data",  # Mount host /data directory inside the notebook directory
 }
 
 # Remove containers once they are stopped
