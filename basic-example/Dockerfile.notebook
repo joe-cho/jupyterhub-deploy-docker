@@ -3,7 +3,7 @@
 
 FROM quay.io/jupyter/base-notebook:latest
 
-# Copy all directories from /dhh_bpc to notebook directory
+# Copy widget_code directory from host to notebook directory
 COPY widget_code /home/jovyan/work/widget_code
 
 # Set proper permissions
