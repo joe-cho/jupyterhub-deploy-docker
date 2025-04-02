@@ -32,13 +32,20 @@ c.DockerSpawner.notebook_dir = notebook_dir
 # notebook directory in the container
 c.DockerSpawner.volumes = {
     "jupyterhub-user-{username}": notebook_dir,
-    "/dhh_bpc/configs": f"{notebook_dir}/configs",
-    "/dhh_bpc/datasets": f"{notebook_dir}/datasets",
-    "/dhh_bpc/origin_notebooks": f"{notebook_dir}/origin_notebooks",
-    "/dhh_bpc/weights": f"{notebook_dir}/weights",
-    "/dhh_bpc/widgets": f"{notebook_dir}/widgets",
+    "/home/iminsik/projects/narnialabs/narnia-projects/ai/projects/dhh_bpc/configs": f"{notebook_dir}/configs",
+    "/home/iminsik/projects/narnialabs/narnia-projects/ai/projects/dhh_bpc/datasets": f"{notebook_dir}/datasets",
+    "/home/iminsik/projects/narnialabs/narnia-projects/ai/projects/dhh_bpc/origin_notebooks": f"{notebook_dir}/origin_notebooks",
+    "/home/iminsik/projects/narnialabs/narnia-projects/ai/projects/dhh_bpc/weights": f"{notebook_dir}/weights",
+    "/home/iminsik/projects/narnialabs/narnia-projects/ai/projects/dhh_bpc/widgets": f"{notebook_dir}/widgets",
 }
 
+# In jupyterhub_config.py
+c.DockerSpawner.extra_host_config = {
+    "device_requests": [{"Driver": "nvidia", "Capabilities": [["gpu"]], "Count": -1}]
+}
+
+# Add this line to specify the runtime
+c.DockerSpawner.extra_create_kwargs = {"runtime": "nvidia"}
 # Remove containers once they are stopped
 c.DockerSpawner.remove = True
 
